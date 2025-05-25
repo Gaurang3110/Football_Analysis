@@ -1,6 +1,8 @@
+***FOOTBALL ANALYSIS***
+
 This project focuses on tracking football players, referees, and the ball in match videos using a trained YOLOv5 object detection model. It enhances analysis by combining several computer vision techniques to extract useful metrics and insights from game footage.
 
-Football Player Tracking and Analysis using YOLO -:
+***Football Player Tracking and Analysis using YOLO -:***
 
 This project focuses on tracking football players, referees, and the ball in match videos using a trained YOLOv5 object detection model. It enhances analysis by combining several computer vision techniques to extract useful metrics and insights from game footage.
 
@@ -14,7 +16,7 @@ This end-to-end solution combines detection, tracking, classification, and real-
 
 Roboflow dataset used for training yolov5 - https://universe.roboflow.com/roboflow-jvuqo/football-players-detection-3zvbc/dataset/1
 
-Key Features-:
+**Key Features-:**
 
 Object Detection: YOLOv5 is used to detect players, referees, and the ball.
 
@@ -28,18 +30,25 @@ Real-World Measurement: Perspective transformation enables movement tracking in 
 
 Performance Metrics: Computes each player's speed and total distance covered.
 
-Tech Stack -: Python 3.x
+**Tech Stack -:**
 
+Python 3.x
 YOLOv5 (via Ultralytics)
-
 OpenCV
-
 NumPy
-
 Matplotlib
-
 Pandas
-
 Supervision
+
+
+TO USE - 
+1) create a models folder and also take input video
+2) create a input_videos folder and put your input video there
+3) Go to training\football_training_yolo_v5.ipynb and run that file
+4) From there you will get best.pt model which is used in main
+5) best.pt model is trained on Roboflow dataset given above on yolov5 model
+6) then after doing the above steps - run the main.py file and your result will be stored into output_videos file
+
+
 
 KMeans (via scikit-learn)
