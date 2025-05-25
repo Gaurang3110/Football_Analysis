@@ -12,6 +12,8 @@ Finally, the project calculates key performance metrics for each player, such as
 
 This end-to-end solution combines detection, tracking, classification, and real-world measurement — making it suitable for beginners and experienced developers alike.
 
+Roboflow dataset used for training yolov5 - https://universe.roboflow.com/roboflow-jvuqo/football-players-detection-3zvbc/dataset/1
+
 Key Features-:
 
 Object Detection: YOLOv5 is used to detect players, referees, and the ball.
