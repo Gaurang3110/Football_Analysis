@@ -121,7 +121,7 @@ With additional time/resources:
 ## 📦 Dataset
 
 
-*Please replace [Roboflow Football Players Detection Dataset](https://universe.roboflow.com/ds/your-dataset-link-here) with the actual link to your Roboflow dataset.*
+ [Roboflow Football Players Detection Dataset](https://universe.roboflow.com/ds/your-dataset-link-here) 
 
 ---
 
