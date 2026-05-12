@@ -1,0 +1,20 @@
+{
+  "settings_version": "0.0.6",
+  "datasets_dir": "C:\\Users\\datasets",
+  "weights_dir": "C:\\Users\\gsrio\\weights",
+  "runs_dir": "C:\\Users\\gsrio\\runs",
+  "uuid": "c0b765d9189c560e2790f74fbcf1d9a5432123c77ccaf30bbd24bc2b6d1e47e7",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "hub": true,
+  "mlflow": true,
+  "neptune": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true
+}

@@ -5,8 +5,6 @@ import cv2
 import numpy as np
 import sys
 
-from IPython.core.completer import position_to_cursor
-
 sys.path.append('../')
 from utils import measure_distance, measure_xy_distance
 
@@ -25,8 +23,10 @@ class CameraMovementEstimator:
 
         first_frame_grayscale = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         mask_features = np.zeros_like(first_frame_grayscale)
-        mask_features[:,0:20] = 1  #banner from up
-        mask_features[:,900:1050] = 1   #banner from bottom
+        frame_width = first_frame_grayscale.shape[1]
+        edge_width = max(20, frame_width // 20)
+        mask_features[:, 0:edge_width] = 1
+        mask_features[:, max(0, frame_width - edge_width):frame_width] = 1
 
 
 
@@ -37,6 +37,9 @@ class CameraMovementEstimator:
             blockSize=7,
             mask = mask_features,
         )
+
+    def _get_features(self, gray_frame):
+        return cv2.goodFeaturesToTrack(gray_frame, **self.features)
 
     def add_adjust_positions_to_tracks(self,tracks,camera_movement_per_frame):
         for object, object_tracks in tracks.items():
@@ -57,11 +60,23 @@ class CameraMovementEstimator:
 
         camera_movement = [[0,0]]*len(frames)
         old_gray = cv2.cvtColor(frames[0],cv2.COLOR_RGB2GRAY)
-        old_features = cv2.goodFeaturesToTrack(old_gray, **self.features)
+        old_features = self._get_features(old_gray)
 
         for frame_num in range(1,len(frames)):
             frame_gray = cv2.cvtColor(frames[frame_num],cv2.COLOR_BGR2GRAY)
+
+            if old_features is None or len(old_features) == 0:
+                old_features = self._get_features(old_gray)
+                if old_features is None or len(old_features) == 0:
+                    old_gray = frame_gray.copy()
+                    continue
+
             new_features, _,_ = cv2.calcOpticalFlowPyrLK(old_gray,frame_gray,old_features,None,**self.lk_params)
+
+            if new_features is None or len(new_features) == 0:
+                old_features = self._get_features(frame_gray)
+                old_gray = frame_gray.copy()
+                continue
 
             max_distance = 0
             camera_movement_x, camera_movement_y = 0,0
@@ -77,7 +92,7 @@ class CameraMovementEstimator:
 
             if max_distance > self.minimum_distance:
                 camera_movement[frame_num] = [camera_movement_x , camera_movement_y]
-                old_features = cv2.goodFeaturesToTrack(frame_gray,**self.features)
+                old_features = self._get_features(frame_gray)
 
 
             old_gray = frame_gray.copy()
